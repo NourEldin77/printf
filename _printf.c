@@ -8,9 +8,7 @@
 
 int _print_char(int c)
 {
-	char x = write(1, &c, 1);
-
-	return (x);
+	return (write(1, &c, 1));
 }
 
 /**
@@ -22,15 +20,17 @@ int _print_char(int c)
 int _print_string(char *c)
 {
 	int bytes = 0;
+	int i = 0;
 
-	if (c != NULL)
-	{
-		for (; *c != '\0'; bytes++)
+		if (c == NULL)
 		{
-			_print_char((int)*c);
+			return (_print_string("(null)"));
+		}
+		for (; *c != '\0'; i++)
+		{
+			bytes += _print_char((int)*c);
 			++c;
 		}
-	}
 	return (bytes);
 }
 
@@ -53,6 +53,24 @@ int _specifier(char flag, va_list ap)
 		case 's':
 			bytes = _print_string(va_arg(ap, char *));
 			break;
+		case 'd':
+			bytes = _print_num_int((long)va_arg(ap, int), 10, 0);
+			break;
+		case 'i':
+			bytes = _print_num_int((long)va_arg(ap, int), 10, 0);
+			break;
+		case 'u':
+			bytes = _print_num_int((long)va_arg(ap, int), 10, 0);
+			break;
+		case 'x':
+			bytes = _print_num_int((long)va_arg(ap, unsigned int), 16, 0);
+			break;
+		case 'X':
+			bytes = _print_num_int((long)va_arg(ap, unsigned int), 16, 1);
+			break;
+		case 'o':
+			bytes = _print_num_int((long)va_arg(ap, unsigned int), 8, 0);
+			break;
 		default:
 			bytes += write(1, &flag, 1);
 			break;
@@ -73,7 +91,11 @@ int _printf(const char *format, ...)
 
 	va_start(ap, format);
 	bytes = 0;
-	if (format == NULL)
+	if (!format || (format[0] == '%' && !format[1]))
+	{
+		return (-1);
+	}
+	if (format[0] == '%' && format[1] == ' ' && !format[2])
 	{
 		return (-1);
 	}
