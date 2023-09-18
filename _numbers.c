@@ -27,3 +27,29 @@ int _print_num_int(long int num, int base, int sign)
 			return (bytes + _print_num_int (num % base, base, sign));
 		}
 }
+/**
+ * _print_bin - function to print binary
+ * @value: unsigned int
+ * Return: num
+*/
+int _print_bin(unsigned int value)
+{
+	int bits;
+	int num = 0;
+	int cas = 1;
+	int bit, i;
+
+	bits = sizeof(unsigned int) * 8;
+	for (i = bits - 1; i >= 0; i--)
+	{
+		bit = (value & (1u << i)) ? 1 : 0;
+		if (bit || !cas)
+		{
+			_print_char(bit ? '1' : '0');
+			cas = 0;
+		   num++;
+		}
+	}
+
+	return (num);
+}

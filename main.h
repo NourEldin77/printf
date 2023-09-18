@@ -6,6 +6,7 @@
 #include <stdarg.h>
 #include <unistd.h>
 
+int _print_bin(unsigned int value);
 int _printf(const char *format, ...);
 int _print_char (int c);
 int _print_string(char *c);

@@ -71,6 +71,9 @@ int _specifier(char flag, va_list ap)
 		case 'o':
 			bytes = _print_num_int((long)va_arg(ap, unsigned int), 8, 0);
 			break;
+		case 'b':
+			bytes = _print_bin((long)va_arg(ap, unsigned long int));
+			break;
 		default:
 			bytes += write(1, &flag, 1);
 			break;
