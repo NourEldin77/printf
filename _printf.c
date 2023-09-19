@@ -74,6 +74,9 @@ int _specifier(char flag, va_list ap)
 		case 'b':
 			bytes = _print_bin((long)va_arg(ap, unsigned long int));
 			break;
+		case 'R':
+			bytes = _print_rot13(va_arg(ap, const char *));
+			break;
 		default:
 			bytes += write(1, &flag, 1);
 			break;
