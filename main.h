@@ -13,5 +13,7 @@ int _print_char (int c);
 int _print_string(char *c);
 int _specifier(char flag, va_list ap);
 int _print_num_int (long int num, int base, int sign);
+int _print_string_rev(char *c);
+int _strlen(char *s);
 
 #endif

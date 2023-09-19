@@ -35,6 +35,30 @@ int _print_string(char *c)
 }
 
 /**
+ * _print_string_rev - print string in reverse using strlen as helper
+ * @c: pointer to the first char of string
+ * Return: num of bytes
+ */
+
+int _print_string_rev(char *c)
+{
+	int bytes = 0;
+	int len = _strlen(c);
+	int x = len - 1;
+
+	if (c == NULL)
+	{
+		return (_print_string("(null)"));
+	}
+	while (x >= 0)
+	{
+		bytes += _print_char((int)c[x]);
+		x--;
+	}
+	return (bytes);
+}
+
+/**
  * _specifier - detrmaine flag after % and how it will print
  * @flag: char % (specifier)
  * @ap: pointer with type va_list that point to printf arguments
@@ -54,11 +78,7 @@ int _specifier(char flag, va_list ap)
 			bytes = _print_string(va_arg(ap, char *));
 			break;
 		case 'd':
-			bytes = _print_num_int((long)va_arg(ap, int), 10, 0);
-			break;
 		case 'i':
-			bytes = _print_num_int((long)va_arg(ap, int), 10, 0);
-			break;
 		case 'u':
 			bytes = _print_num_int((long)va_arg(ap, int), 10, 0);
 			break;
@@ -76,6 +96,9 @@ int _specifier(char flag, va_list ap)
 			break;
 		case 'R':
 			bytes = _print_rot13(va_arg(ap, const char *));
+			break;
+		case 'r':
+			bytes = _print_string_rev(va_arg(ap, char *));
 			break;
 		default:
 			bytes += write(1, &flag, 1);
