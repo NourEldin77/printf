@@ -79,8 +79,10 @@ int _specifier(char flag, va_list ap)
 			break;
 		case 'd':
 		case 'i':
-		case 'u':
 			bytes = _print_num_int((long)va_arg(ap, int), 10, 0);
+			break;
+		case 'u':
+			bytes = _print_num_int((unsigned long)va_arg(ap, unsigned int), 10, 0);
 			break;
 		case 'x':
 			bytes = _print_num_int((long)va_arg(ap, unsigned int), 16, 0);
