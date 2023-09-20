@@ -69,43 +69,30 @@ int _specifier(char flag, va_list ap)
 {
 	int bytes = 0;
 
-	switch (flag)
-	{
-		case 'c':
-			bytes = _print_char(va_arg(ap, int));
-			break;
-		case 's':
-			bytes = _print_string(va_arg(ap, char *));
-			break;
-		case 'd':
-		case 'i':
-			bytes = _print_num_int((long)va_arg(ap, int), 10, 0);
-			break;
-		case 'u':
-			bytes = _print_num_int((unsigned long)va_arg(ap, unsigned int), 10, 0);
-			break;
-		case 'x':
-			bytes = _print_num_int((long)va_arg(ap, unsigned int), 16, 0);
-			break;
-		case 'X':
-			bytes = _print_num_int((long)va_arg(ap, unsigned int), 16, 1);
-			break;
-		case 'o':
-			bytes = _print_num_int((long)va_arg(ap, unsigned int), 8, 0);
-			break;
-		case 'b':
-			bytes = _print_bin((long)va_arg(ap, unsigned long int));
-			break;
-		case 'R':
-			bytes = _print_rot13(va_arg(ap, const char *));
-			break;
-		case 'r':
-			bytes = _print_string_rev(va_arg(ap, char *));
-			break;
-		default:
-			bytes += write(1, &flag, 1);
-			break;
-	}
+	if (flag == 'c')
+		bytes = _print_char(va_arg(ap, int));
+	else if (flag == 's')
+		bytes = _print_string(va_arg(ap, char *));
+	else if (flag == 'd' || flag == 'i')
+		bytes = _print_num_int((long)va_arg(ap, int), 10, 0);
+	else if (flag == 'u')
+		bytes = _print_num_int((unsigned long)va_arg(ap, unsigned int), 10, 0);
+	else if (flag == 'x')
+		bytes = _print_num_int((long)va_arg(ap, unsigned int), 16, 0);
+	else if (flag == 'X')
+		bytes = _print_num_int((long)va_arg(ap, unsigned int), 16, 1);
+	else if (flag == 'o')
+		bytes = _print_num_int((long)va_arg(ap, unsigned int), 8, 0);
+	else if (flag == 'b')
+		bytes = _print_bin((long)va_arg(ap, unsigned long int));
+	else if (flag == 'R')
+		bytes = _print_rot13(va_arg(ap, const char *));
+	else if (flag == 'r')
+		bytes = _print_string_rev(va_arg(ap, char *));
+	else if (flag == 'S')
+		bytes =  _print_hex_string(va_arg(ap, char *));
+	else
+		bytes += write(1, &flag, 1);
 	return (bytes);
 }
 
